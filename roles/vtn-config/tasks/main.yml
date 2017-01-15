@@ -1,0 +1,29 @@
+---
+# xos-compute-setup/tasks/main.yml
+#
+# Tell XOS that a new compute node has been added
+
+- name: Debug interace
+  become: yes
+  shell: ansible --private-key=/etc/maas/ansible/id_rsa -i /etc/maas/ansible/pod-inventory compute -m command -a "ifconfig br-int" | grep -c "inet addr"
+  register: result
+
+- name: Match number
+  fail: msg="Some compute nodes's interface 'br-int' has not ready yet"
+  when: result.stdout!=COMPUTE_HOST_COUNT
+
+- name: Create nodes/vtn TOSCA config
+  template:
+    src: "{{ item }}.j2"
+    dest: "{{ service_profile_repo_dest }}/{{ xos_configuration }}/{{ item }}"
+    owner: "{{ ansible_user_id }}"
+    mode: 0644
+  with_items:
+    - vtn.yaml
+    - nodes.yaml
+
+- name: Rebuild VTN configuration with new nodes block
+  make:
+    chdir: "{{ service_profile_repo_dest }}/{{ xos_configuration }}"
+    target: vtn
+
