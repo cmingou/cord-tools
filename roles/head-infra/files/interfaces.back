@@ -1,0 +1,94 @@
+# This file describes the network interfaces available on your system
+# and how to activate them. For more information, see interfaces(5).
+
+# The loopback network interface
+auto lo
+iface lo inet loopback
+
+# Primary management interface
+auto eth0
+iface eth0 inet manual
+#  bond-master mgmtbond
+#  bond-primary eth0
+
+# Management interface
+auto eth1
+iface eth1 inet manual
+#  bond-master mgmtbond
+
+# External interface from POD to Internet (uplink)
+auto eth5
+iface eth5 inet static
+  address 140.113.61.201
+  network 140.113.61.0
+  netmask 255.255.255.0
+  broadcast 140.113.61.255
+
+# Internal POD management bond
+auto mgmtbond
+iface mgmtbond inet manual
+  bond-miimon 100
+  bond-slaves none
+  bond-mode active-backup
+
+# Primary fabric interface
+auto p2p1
+iface p2p1 inet manual
+  bond-master fabric
+  bond-primary p2p1
+
+# Fabric interface
+auto p2p2
+iface p2p2 inet manual
+  bond-master fabric
+
+# Fabric interface
+auto p2p3
+iface p2p3 inet manual
+  bond-master fabric
+
+# Fabric interface
+auto p2p4
+iface p2p4 inet manual
+  bond-master fabric
+
+# Management interface
+auto p6p1
+iface p6p1 inet manual
+  bond-master mgmtbond
+
+# Management interface
+auto p6p2
+iface p6p2 inet manual
+  bond-master mgmtbond
+
+# Veth interfaces for VTN app
+auto veth3
+iface veth3 inet static
+  address 0.0.0.0
+  pre-up /sbin/ip link add name veth3 type veth peer name veth2
+  pre-up /sbin/ip link set veth2 up
+  pre-up /sbin/brctl addif mgmtbr veth2
+  pre-down /sbin/brctl delif mgmtbr veth2
+  post-down /sbin/ip link del veth2
+
+# Leaf - Spine bonded fabric interface
+auto fabric
+iface fabric inet static
+  address 10.6.1.1
+  network 10.6.1.0
+  netmask 255.255.255.0
+  broadcast 10.6.1.255
+  bond-miimon 100
+  bond-slaves none
+  bond-mode active-backup
+
+# Internal POD management bridge
+auto mgmtbr
+iface mgmtbr inet static
+  address 192.168.15.1
+  network 192.168.15.0
+  netmask 255.255.255.0
+  broadcast 192.168.15.255
+  bridge_ports mgmtbond veth2
+

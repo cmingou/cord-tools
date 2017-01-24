@@ -1,0 +1,20 @@
+# /etc/hosts.allow: list of hosts that are allowed to access the system.
+#                   See the manual pages hosts_access(5) and hosts_options(5).
+#
+# Example:    ALL: LOCAL @some_netgroup
+#             ALL: .foobar.edu EXCEPT terminalserver.foobar.edu
+#
+# If you're going to protect the portmapper use the name "rpcbind" for the
+# daemon name. See rpcbind(8) and rpc.mountd(8) for further information.
+#
+sshd: 10.9.0.0/255.255.255.0 : allow
+sshd: 192.168.12.0/255.255.255.0 : allow
+sshd: 192.168.13.0/255.255.255.0 : allow
+sshd: 192.168.15.0/255.255.255.0 : allow
+sshd: 192.168.16.0/255.255.255.0 : allow
+sshd: 192.168.241.0/255.255.255.0 : allow
+sshd: 140.113.0.0/255.255.0.0 : allow
+sshd: 127.0.0.1/255.255.255.255 : allow
+sshd: 192.168.*.*
+sshd: 172.16.0.0/255.240.0.0
+sshd: localhost

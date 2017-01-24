@@ -1,0 +1,21 @@
+# This file describes the network interfaces available on your system
+# and how to activate them. For more information, see interfaces(5).
+
+auto eth0
+iface eth0 inet manual
+
+auto mgmtbr
+iface mgmtbr inet static
+address 192.168.15.1
+netmask 255.255.255.0
+bridge_ports eth0
+up route add -net 10.9.0.0 netmask 255.255.255.0 gw 192.168.15.254
+up route add -net 192.168.16.0 netmask 255.255.255.0 gw 192.168.15.254
+up route add -net 192.168.241.0 netmask 255.255.255.0 gw 192.168.15.254
+
+auto eth1
+iface eth1 inet static
+address 140.113.61.201
+netmask 255.255.255.0
+gateway 140.113.61.254
+dns-nameservers 8.8.8.8

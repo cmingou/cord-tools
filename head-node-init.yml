@@ -1,0 +1,6 @@
+---
+- hosts: head
+  become: yes
+  roles:
+    - head-infra
+    - openstackclient

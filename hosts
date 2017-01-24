@@ -1,0 +1,2 @@
+[head]
+192.168.15.1	ansible_user=ubuntu	ansible_ssh_pass=ubuntu

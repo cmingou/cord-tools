@@ -1,0 +1,86 @@
+---
+# tasks file for head-infra
+- name: Create .ssh directory
+  file:
+    path: /home/ubuntu/.ssh
+    state: directory
+    owner: ubuntu
+    group: ubuntu
+    mode: 0775
+
+- name: Copy authorized file
+  copy:
+    src=authorized_keys
+    dest=/home/ubuntu/.ssh/authorized_keys
+    owner=ubuntu
+    mode=0644
+    group=ubuntu
+
+- name: Copy hosts.allow
+  copy:
+    src=hosts.allow
+    dest=/etc/hosts.allow
+    owner=root mode=0644
+
+- name: Copy hosts.deny
+  copy:
+    src=hosts.deny
+    dest=/etc/hosts.deny
+    owner=root mode=0644
+
+- name: Copy 70-persistent-net.rules
+  copy:
+    src=70-persistent-net.rules
+    dest=/etc/udev/rules.d/70-persistent-net.rules
+    owner=root mode=0644
+
+- name : Add DNS server
+  lineinfile:
+    dest: /etc/resolv.conf
+    line: 'nameserver 8.8.8.8'
+
+- name: Install bridge tool
+  apt:
+    name: bridge-utils
+    update_cache: yes
+
+- name: Add bridge mgmtbr
+  command: brctl addbr mgmtbr
+  tags:
+    - bridge
+
+- name: Copy network interface file
+  copy:
+    src=interfaces
+    dest=/etc/network/interfaces
+    owner=root mode=0644
+
+- name: Ensure CORD SUDO
+  become: yes
+  copy:
+    src=99-cord-sudoers
+    dest=/etc/sudoers.d/99-cord-sudoers
+    owner=root
+    group=root
+    mode="0600"
+  tags:
+    - sudoer
+
+- name: Reboot Required
+  command: /sbin/reboot
+  async: 0
+  poll: 0
+  ignore_errors: true
+  tags:
+    - reboot
+
+#- name: Ensure Port Defined
+#  set_fact:
+#    ansible_ssh_port: 22
+#  when: ansible_ssh_port is not defined
+
+- name: Wait For Restart
+  local_action: wait_for port=22 host=192.168.15.1 search_regex=OpenSSH delay=120 timeout=600 connect_timeout=15
+  tags:
+    - reboot
+

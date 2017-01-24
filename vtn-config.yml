@@ -16,5 +16,5 @@
   vars:
     COMPUTE_HOST_COUNT: "{{ groups['compute'] | length }}"
   roles:
-#    - debug
+    - debug
     - vtn-config

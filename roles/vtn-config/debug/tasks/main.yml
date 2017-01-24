@@ -1,0 +1,5 @@
+---
+# tasks file for debug
+- name: Debug hostvar
+  debug:
+    var: hostvars

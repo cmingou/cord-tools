@@ -1,0 +1,29 @@
+---
+# tasks file for openstackclient
+- name: Install python-dev
+  apt:
+    name: "{{ item }}"
+    update_cache: yes
+  with_items:
+    - python-pip
+    - python-dev
+
+- name: Pip install packages
+  pip:
+    name: "{{ item }}"
+  with_items:
+    - positional
+    - stevedore
+    - os-client-config
+    - oslo.serialization
+    - unicodecsv
+    - python-openstackclient
+
+- name: Pip update packages
+  pip:
+    name: "{{ item }}"
+    extra_args: --upgrade
+  with_items:
+    - pbr
+    - oslo.config
+    
