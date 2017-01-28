@@ -6,14 +6,14 @@
 #  pause:
 #    minutes: 1
 
-- name: Debug interace
-  become: yes
-  shell: ansible --private-key=/etc/maas/ansible/id_rsa -i /etc/maas/ansible/pod-inventory compute -m command -a "ifconfig br-int"
-  register: result
+#- name: Debug interace
+#  become: yes
+#  shell: ansible --private-key=/etc/maas/ansible/id_rsa -i /etc/maas/ansible/pod-inventory compute -m command -a "ifconfig br-int"
+#  register: result
 
-- name: Debug interface
-  debug:
-    var: result
+#- name: Debug interface
+#  debug:
+#    var: result
 #- name: Match number
 #  fail: msg="Some compute nodes's interface 'br-int' has not ready yet"
 #  when: result.stdout!=COMPUTE_HOST_COUNT
@@ -31,5 +31,9 @@
 - name: Rebuild VTN configuration with new nodes block
   make:
     chdir: "{{ service_profile_repo_dest }}/{{ xos_configuration }}"
-    target: vtn
+    target: "{{ item }}"
+    with_items:
+      - vtn
+      - fabric
+      - cord
 
