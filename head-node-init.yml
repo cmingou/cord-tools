@@ -1,6 +1,5 @@
 ---
-- hosts: head
+- hosts: localhost
   become: yes
   roles:
-    - head-infra
     - openstackclient

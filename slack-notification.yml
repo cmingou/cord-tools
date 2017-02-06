@@ -1,0 +1,15 @@
+---
+- name: Work finish notification
+  hosts: localhost
+  connection: local
+  vars:
+    slack_domain: 'cord-tw.slack.com'
+    slack_token: 'T02L2AZ4Q/B41VBBJTH/z13ZVel4QKaeDZAkkU6cz2ni'
+    slack_channel: "@breezestars"
+
+  tasks:
+    - name: Test with Slack
+      slack:
+        token: '{{ slack_token }}'
+        msg: 'Task Finished'
+      delegate_to: localhost
