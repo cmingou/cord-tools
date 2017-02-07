@@ -5,8 +5,8 @@ instance_name=$3
 echo "Create instance with net-mgmt $net_mgmt_name , net-vsg $net_vsg_name , instance-name $instance_name"
 
 source $HOME/admin-openrc.sh
-#openstack port create --network management $1
-#openstack port create --network mysite_vsg-access $2
+openstack port create --network management $1
+openstack port create --network mysite_vsg-access $2
 
 
 id_net_mgmt=$(openstack port list | grep $net_mgmt_name | awk '{print $2}')
