@@ -25,7 +25,7 @@ openstack compute service list | grep nova-compute | awk '{print $6}' >> $INV
 
 cat $INV
 sudo ansible --private-key=/etc/maas/ansible/id_rsa -i $INV compute -m ping
-ANSIBLE_ROLES_PATH=/etc/maas/ansible/roles ansible-playbook --private-key=/etc/maas/ansible/id_rsa -i $INV /etc/maas/ansible/vtn-config.yml
+ANSIBLE_ROLES_PATH=/etc/maas/ansible/roles ansible-playbook --private-key=/etc/maas/ansible/id_rsa -i $INV /etc/maas/ansible/scripts/vtn-config.yml
 RESULT=$?
 rm $INV
 exit $RESULT

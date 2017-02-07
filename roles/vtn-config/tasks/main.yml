@@ -8,7 +8,7 @@
 
 #- name: Debug interace
 #  become: yes
-#  shell: ansible --private-key=/etc/maas/ansible/id_rsa -i /etc/maas/ansible/pod-inventory compute -m command -a "ifconfig br-int"
+#  shell: ansible --private-key=/etc/maas/ansible/id_rsa -i /etc/maas/ansible/scripts/pod-inventory compute -m command -a "ifconfig br-int"
 #  register: result
 
 #- name: Debug interface
