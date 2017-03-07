@@ -1,0 +1,48 @@
+diff --git a/roles/juju-setup/tasks/main.yml b/roles/juju-setup/tasks/main.yml
+index 554add9..b738c0e 100644
+--- a/roles/juju-setup/tasks/main.yml
++++ b/roles/juju-setup/tasks/main.yml
+@@ -31,6 +31,17 @@
+     src={{ juju_config_name }}_juju_config.yml.j2
+     dest={{ juju_config_path }}
+ 
++- name: Pause for 2 min for wait machine
++  pause:
++    minutes: 2
++
++- name: Let every container do apt-get update
++  command: ansible containers -m command -u ubuntu -a 'sudo apt-get update'
++  register: result
++  until: result | success
++  retries: 40
++  delay: 15
++
+ # For setwise operations on desired vs Juju state:
+ # list of active juju_machines names: juju_machines.keys()
+ # list of active juju_services names: juju_services.keys()
+diff --git a/vars/cord_defaults.yml b/vars/cord_defaults.yml
+index 7a0549b..41d565c 100644
+--- a/vars/cord_defaults.yml
++++ b/vars/cord_defaults.yml
+@@ -226,17 +226,17 @@ compute_relations:
+ 
+ xos_images:
+   - name: "trusty-server-multi-nic"
+-    url: "http://www.vicci.org/opencloud/trusty-server-cloudimg-amd64-disk1.img"
++    url: "http://140.113.60.195/cord/trusty-server-cloudimg-amd64-disk1.img"
+     checksum: "sha256:c2d0ffc937aeb96016164881052a496658efeb98959dc68e73d9895c5d9920f7"
+ 
+   - name: "vsg-1.1"
+-    url: "http://www.vicci.org/cord/vsg-1.1.img"
++    url: "http://140.113.60.195/cord/vsg-1.1.img"
+     checksum: "sha256:16b0beb6778aed0f5feecb05f8d5750e6c262f98e6011e99ddadf7d46a177b6f"
+ 
+   - name: "ceilometer-trusty-server-multi-nic"
+-    url: "http://www.vicci.org/cord/ceilometer-trusty-server-multi-nic.compressed.qcow2"
++    url: "http://140.113.60.195/cord/ceilometer-trusty-server-multi-nic.compressed.qcow2"
+     checksum: "sha256:b77ef8d692b640568dea13df99fe1dfcb1f4bb4ac05408db9ff77399b34f754f"
+ 
+   - name: "ceilometer-service-trusty-server-multi-nic"
+-    url: "http://www.vicci.org/cord/ceilometer-service-trusty-server-multi-nic.compressed.qcow2"
++    url: "http://140.113.60.195/cord/ceilometer-service-trusty-server-multi-nic.compressed.qcow2"
+     checksum: "sha256:ab4b792cab0e901c4af0accdb85629bfdd1166f7de158014a50f37aefe0ba6a5"

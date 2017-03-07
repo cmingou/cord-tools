@@ -1,0 +1,19 @@
+diff --git a/config/cord_in_a_box.yml b/config/cord_in_a_box.yml
+index edc4bca..8896b6f 100644
+--- a/config/cord_in_a_box.yml
++++ b/config/cord_in_a_box.yml
+@@ -44,6 +44,14 @@ seedServer:
+     - 'fabric_exclude_names=eth0,eth1'
+     - 'management_include_names=eth1'
+     - 'management_exclude_names=eth0,eth2'
++    - ubuntu_apt_repo="deb [arch=amd64] http://ubuntu.cs.nctu.edu.tw/ubuntu trusty main universe"
++    - ubuntu_updates_apt_repo="deb [arch=amd64] http://ubuntu.cs.nctu.edu.tw/ubuntu trusty-updates main universe"
++    - docker_apt_repo="deb [arch=amd64] http://140.113.60.195/mirror/apt.dockerproject.org/repo ubuntu-trusty main"
++    - java_apt_repo="deb [arch=amd64] http://140.113.60.195/mirror/ppa.launchpad.net/webupd8team/java/ubuntu trusty main"
++    - ansible_apt_repo="deb [arch=amd64] http://140.113.60.195/mirror/ppa.launchpad.net/ansible/ansible/ubuntu trusty main"
++    - maas_apt_repo="deb [arch=amd64] http://140.113.60.195/mirror/ppa.launchpad.net/maas/stable/ubuntu trusty main"
++    - dell_apt_repo="deb [arch=amd64] http://140.113.60.195/mirror/linux.dell.com/repo/community trusty openmanage"
++    - juju_apt_repo="deb [arch=amd64] http://140.113.60.195/mirror/ppa.launchpad.net/juju/stable/ubuntu trusty main"
+ 
+ docker:
+   imageVersion: candidate
