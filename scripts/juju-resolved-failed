@@ -1,0 +1,2 @@
+#!/bin/bash
+juju status --format=tabular | grep 'hook failed' | awk '{print $1}' | xargs -I {} juju resolved --retry {}
