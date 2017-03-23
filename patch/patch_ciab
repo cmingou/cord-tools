@@ -1,5 +1,5 @@
 diff --git a/cord-in-a-box.sh b/cord-in-a-box.sh
-index 7682f9f..dcd9c69 100644
+index 7682f9f..17f6ed0 100644
 --- a/cord-in-a-box.sh
 +++ b/cord-in-a-box.sh
 @@ -27,9 +27,20 @@ function cleanup_from_previous_test() {
@@ -24,9 +24,12 @@ index 7682f9f..dcd9c69 100644
    dpkg -l vagrant || sudo dpkg -i vagrant_1.8.5_x86_64.deb
    sudo apt-get -y install qemu-kvm libvirt-bin libvirt-dev curl nfs-kernel-server git build-essential
  
-@@ -62,6 +73,7 @@ function bootstrap() {
+@@ -60,8 +71,9 @@ function bootstrap() {
+   cd $CORDDIR/build
+   vagrant plugin list | grep vagrant-libvirt || vagrant plugin install vagrant-libvirt --plugin-version 0.0.35
    vagrant plugin list | grep vagrant-mutate || vagrant plugin install vagrant-mutate
-   vagrant box list ubuntu/trusty64 | grep virtualbox || vagrant box add ubuntu/trusty64
+-  vagrant box list ubuntu/trusty64 | grep virtualbox || vagrant box add ubuntu/trusty64
++  vagrant box list ubuntu/trusty64 | grep virtualbox || vagrant box add ubuntu/trusty64 http://cloud-images.sdn.nctu.edu.tw/cord/virtualbox.box
    vagrant box list ubuntu/trusty64 | grep libvirt || vagrant mutate ubuntu/trusty64 libvirt --input-provider virtualbox
 +  bash $HOME/cord-tools/patch/do_patch.sh
  }
