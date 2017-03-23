@@ -1,6 +1,6 @@
-diff --git a/cord-in-a-box-origin.sh b/cord-in-a-box.sh
+diff --git a/cord-in-a-box.sh b/cord-in-a-box.sh
 index 7682f9f..dcd9c69 100644
---- a/cord-in-a-box-origin.sh
+--- a/cord-in-a-box.sh
 +++ b/cord-in-a-box.sh
 @@ -27,9 +27,20 @@ function cleanup_from_previous_test() {
  }
