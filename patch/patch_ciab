@@ -13,9 +13,9 @@ index 7682f9f..dcd9c69 100644
 +  then
 +    echo "The APT repo has been changed to NCTU repo"
 +  else
-+    echo "Changing APT repo to NCTU repo"
-+    sudo sed -i 's/us.archive.ubuntu.com/ubuntu.cs.nctu.edu.tw/g' /etc/apt/sources.list
-+    sudo sed -i 's/security.ubuntu.com/ubuntu.cs.nctu.edu.tw/g' /etc/apt/sources.list
++    echo "Changing APT repo to NCHC repo"
++    sudo sed -i 's/us.archive.ubuntu.com/free.nchc.org.tw/g' /etc/apt/sources.list
++    sudo sed -i 's/security.ubuntu.com/free.nchc.org.tw/g' /etc/apt/sources.list
 +    echo "Done"
 +  fi
    sudo apt-get update
