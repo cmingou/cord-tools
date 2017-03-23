@@ -9,9 +9,9 @@ index 7682f9f..17f6ed0 100644
 +  echo "Timestamp for bootstrap:"
 +  echo $(date)
    cd ~
-+  if [ $(sudo cat /etc/apt/sources.list | grep 'cs.nctu.edu.tw' -c) -gt 0 ]
++  if [ $(sudo cat /etc/apt/sources.list | grep 'free.nchc.org.tw' -c) -gt 0 ]
 +  then
-+    echo "The APT repo has been changed to NCTU repo"
++    echo "The APT repo has been changed to NCHC repo"
 +  else
 +    echo "Changing APT repo to NCHC repo"
 +    sudo sed -i 's/us.archive.ubuntu.com/free.nchc.org.tw/g' /etc/apt/sources.list
