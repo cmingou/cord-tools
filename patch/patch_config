@@ -6,8 +6,8 @@ index edc4bca..8896b6f 100644
      - 'fabric_exclude_names=eth0,eth1'
      - 'management_include_names=eth1'
      - 'management_exclude_names=eth0,eth2'
-+    - ubuntu_apt_repo="deb [arch=amd64] http://free.nchc.org.tw/ubuntu trusty main universe"
-+    - ubuntu_updates_apt_repo="deb [arch=amd64] http://free.nchc.org.tw/ubuntu trusty-updates main universe"
++    - ubuntu_apt_repo="deb [arch=amd64] http://140.113.60.195/ubuntu trusty main universe"
++    - ubuntu_updates_apt_repo="deb [arch=amd64] http://140.113.60.195/ubuntu trusty-updates main universe"
 +    - docker_apt_repo="deb [arch=amd64] http://140.113.60.195/mirror/apt.dockerproject.org/repo ubuntu-trusty main"
 +    - java_apt_repo="deb [arch=amd64] http://140.113.60.195/mirror/ppa.launchpad.net/webupd8team/java/ubuntu trusty main"
 +    - ansible_apt_repo="deb [arch=amd64] http://140.113.60.195/mirror/ppa.launchpad.net/ansible/ansible/ubuntu trusty main"
