@@ -1,0 +1,9 @@
+If you verified there are no obvious errors, you can always retry running the hook to see if it resolves the issue:
+
+juju resolved --retry keystone/0
+
+If the problem still persists, you could try:
+
+juju debug-hooks keystone/0 config-changed,
+
+which will SSH into the machine and wait for the config-changed to run. You need to manually trigger the hook outside by running resolved as described above. Once the hook starts you can run the hook script manually, inspect its output or relation settings, or change what the hook does, interactively.
