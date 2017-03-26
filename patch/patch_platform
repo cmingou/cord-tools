@@ -1,5 +1,15 @@
+diff --git a/gradle/wrapper/gradle-wrapper.properties b/gradle/wrapper/gradle-wrapper.properties
+index cf051c0..5d7675d 100644
+--- a/gradle/wrapper/gradle-wrapper.properties
++++ b/gradle/wrapper/gradle-wrapper.properties
+@@ -3,4 +3,4 @@ distributionBase=GRADLE_USER_HOME
+ distributionPath=wrapper/dists
+ zipStoreBase=GRADLE_USER_HOME
+ zipStorePath=wrapper/dists
+-distributionUrl=https\://services.gradle.org/distributions/gradle-2.13-all.zip
++distributionUrl=http\://cloud-images.sdn.nctu.edu.tw/cord/gradle-2.13-all.zip
 diff --git a/roles/juju-setup/tasks/main.yml b/roles/juju-setup/tasks/main.yml
-index 554add9..b738c0e 100644
+index 69b13bf..fbad9d6 100644
 --- a/roles/juju-setup/tasks/main.yml
 +++ b/roles/juju-setup/tasks/main.yml
 @@ -31,6 +31,17 @@
@@ -17,9 +27,9 @@ index 554add9..b738c0e 100644
 +  retries: 40
 +  delay: 15
 +
- # For setwise operations on desired vs Juju state:
- # list of active juju_machines names: juju_machines.keys()
- # list of active juju_services names: juju_services.keys()
+ # check that containers are ready to be accessed, juju add-machine may error
+ - name: Check that machines are available for Juju
+   command: ansible containers -m ping -u ubuntu
 diff --git a/vars/cord_defaults.yml b/vars/cord_defaults.yml
 index 7a0549b..41d565c 100644
 --- a/vars/cord_defaults.yml
