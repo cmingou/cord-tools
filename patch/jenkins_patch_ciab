@@ -1,0 +1,77 @@
+diff --git a/cord-in-a-box.sh b/cord-in-a-box.sh
+index 7682f9f..cbf6e02 100644
+--- a/cord-in-a-box.sh
++++ b/cord-in-a-box.sh
+@@ -27,9 +27,20 @@ function cleanup_from_previous_test() {
+ }
+ 
+ function bootstrap() {
++  echo "Timestamp for bootstrap:"
++  echo $(date)
+   cd ~
++  if [ $(sudo cat /etc/apt/sources.list | grep '140.113.60.195' -c) -gt 0 ]
++  then
++    echo "The APT repo has been changed to NCHC repo"
++  else
++    echo "Changing APT repo to NCHC repo"
++    sudo sed -i 's/us.archive.ubuntu.com/140.113.60.195/g' /etc/apt/sources.list
++    sudo sed -i 's/security.ubuntu.com/140.113.60.195/g' /etc/apt/sources.list
++    echo "Done"
++  fi
+   sudo apt-get update
+-  [ -e vagrant_1.8.5_x86_64.deb ] || wget https://releases.hashicorp.com/vagrant/1.8.5/vagrant_1.8.5_x86_64.deb
++  [ -e vagrant_1.8.5_x86_64.deb ] || wget http://cloud-images.sdn.nctu.edu.tw/cord/vagrant_1.8.5_x86_64.deb
+   dpkg -l vagrant || sudo dpkg -i vagrant_1.8.5_x86_64.deb
+   sudo apt-get -y install qemu-kvm libvirt-bin libvirt-dev curl nfs-kernel-server git build-essential
+ 
+@@ -60,8 +71,9 @@ function bootstrap() {
+   cd $CORDDIR/build
+   vagrant plugin list | grep vagrant-libvirt || vagrant plugin install vagrant-libvirt --plugin-version 0.0.35
+   vagrant plugin list | grep vagrant-mutate || vagrant plugin install vagrant-mutate
+-  vagrant box list ubuntu/trusty64 | grep virtualbox || vagrant box add ubuntu/trusty64
++  vagrant box list ubuntu/trusty64 | grep virtualbox || vagrant box add ubuntu/trusty64 http://cloud-images.sdn.nctu.edu.tw/cord/virtualbox.box
+   vagrant box list ubuntu/trusty64 | grep libvirt || vagrant mutate ubuntu/trusty64 libvirt --input-provider virtualbox
++  bash ~/workspace/Cord-in-a-box/cord-tools/patch/jenkins_do_patch.sh
+ }
+ 
+ function cloudlab_setup() {
+@@ -97,6 +109,10 @@ function vagrant_vms_up() {
+
+   scp ~/.ssh/id_rsa* corddev:.ssh
+   ssh corddev "chmod go-r ~/.ssh/id_rsa"
++  echo "Changing APT repo to NCHC repo"
++  ssh corddev "sudo sed -E -i 's/([a-zA-Z]{2}.)?archive.ubuntu.com/140.113.60.195/g' /etc/apt/sources.list"
++  ssh corddev "sudo sed -i 's/security.ubuntu.com/140.113.60.195/g' /etc/apt/sources.list"
++  echo "Done"
+ }
+
+ function install_head_node() {
+@@ -121,6 +137,10 @@ function set_up_maas_user() {
+
+   # Copy generated private key to maas user's home dir in prod VM
+   scp $HOME/.ssh/id_rsa prod:/tmp
++  echo "Changing APT repo to NCHC repo"
++  ssh prod "sudo sed -E -i 's/([a-zA-Z]{2}.)?archive.ubuntu.com/140.113.60.195/g' /etc/apt/sources.list"
++  ssh prod "sudo sed -i 's/security.ubuntu.com/140.113.60.195/g' /etc/apt/sources.list"
++  echo "Done"
+   ssh prod "sudo mkdir -p ~maas/.ssh"
+   ssh prod "sudo cp /tmp/id_rsa ~maas/.ssh/id_rsa"
+   ssh prod "sudo chown -R maas:maas ~maas/.ssh"
+@@ -145,6 +165,8 @@ function add_compute_node() {
+
+   echo ""
+   echo "compute_node is fully provisioned!"
++  echo "Timestamp for finish add compute node:"
++  echo $(date)
+ }
+ 
+ function run_e2e_test () {
+@@ -152,6 +174,8 @@ function run_e2e_test () {
+ 
+   # User has been added to the lbvirtd group, but su $USER to be safe
+   ssh corddev "cd /cord/build; ./gradlew -PdeployConfig=$VMDIR/$CONFIG postDeployTests"
++  echo "Timestamp for E2E test:"
++  echo $(date)
+ }
+ 
+ function run_diagnostics() {
