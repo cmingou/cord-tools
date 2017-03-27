@@ -21,6 +21,24 @@ index f81de29..9a73ff9 100644
      release={{ ansible_distribution_release }} arch=amd64
    args:
      creates: "/var/lib/uvtool/libvirt/images/x-uvt-b64-*"
+diff --git a/roles/create-lxd/tasks/main.yml b/roles/create-lxd/tasks/main.yml
+index b6e3651..4fc1789 100644
+--- a/roles/create-lxd/tasks/main.yml
++++ b/roles/create-lxd/tasks/main.yml
+@@ -104,6 +104,13 @@
+   tags:
+     - skip_ansible_lint # connectivity check
+ 
++- name: Let every container do apt-get update
++  command: ansible containers -m command -u ubuntu -a 'sudo apt-get update'
++  register: result
++  until: result | success
++  retries: 40
++  delay: 15
++
+ - name: Verify that containers have external connectivity
+   command: ansible containers -m uri -u ubuntu -a "url=http://www.google.com"
+   tags:
 diff --git a/roles/juju-setup/tasks/main.yml b/roles/juju-setup/tasks/main.yml
 index 69b13bf..fbad9d6 100644
 --- a/roles/juju-setup/tasks/main.yml
