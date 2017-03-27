@@ -8,6 +8,19 @@ index cf051c0..5d7675d 100644
  zipStorePath=wrapper/dists
 -distributionUrl=https\://services.gradle.org/distributions/gradle-2.13-all.zip
 +distributionUrl=http\://cloud-images.sdn.nctu.edu.tw/cord/gradle-2.13-all.zip
+diff --git a/roles/config-virt/tasks/main.yml b/roles/config-virt/tasks/main.yml
+index f81de29..9a73ff9 100644
+--- a/roles/config-virt/tasks/main.yml
++++ b/roles/config-virt/tasks/main.yml
+@@ -9,7 +9,7 @@
+ 
+ - name: Get ubuntu image for uvtool
+   when: "{{ uvtool_image.matched < 1 }}"
+-  command: uvt-simplestreams-libvirt sync --source http://cloud-images.ubuntu.com/daily \
++  command: uvt-simplestreams-libvirt sync --source http://cloud-images.sdn.nctu.edu.tw/daily \
+     release={{ ansible_distribution_release }} arch=amd64
+   args:
+     creates: "/var/lib/uvtool/libvirt/images/x-uvt-b64-*"
 diff --git a/roles/juju-setup/tasks/main.yml b/roles/juju-setup/tasks/main.yml
 index 69b13bf..fbad9d6 100644
 --- a/roles/juju-setup/tasks/main.yml
