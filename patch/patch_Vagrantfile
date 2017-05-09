@@ -8,6 +8,7 @@ index 41b96eb..9614afa 100644
      d.vm.network "private_network", ip: "10.100.198.200"
 +    d.vm.provision :shell, inline: "sed -i 's/archive.ubuntu.com/140.113.60.195/g' /etc/apt/sources.list"
 +    d.vm.provision :shell, inline: "sed -i 's/security.ubuntu.com/140.113.60.195/g' /etc/apt/sources.list"
++    d.vm.provision :shell, inline: "sed -i 'apt-get update"
      d.vm.provision :shell, path: "scripts/bootstrap_ansible.sh"
      d.vm.provision :shell, inline: "PYTHONUNBUFFERED=1 ansible-playbook /cord/build/ansible/corddev.yml -c local"
      d.vm.provider "virtualbox" do |v|
@@ -17,6 +18,7 @@ index 41b96eb..9614afa 100644
          libvirt__dhcp_enabled: false
 +    d.vm.provision :shell, inline: "sed -i 's/archive.ubuntu.com/140.113.60.195/g' /etc/apt/sources.list"
 +    d.vm.provision :shell, inline: "sed -i 's/security.ubuntu.com/140.113.60.195/g' /etc/apt/sources.list"
++    d.vm.provision :shell, inline: "sed -i 'apt-get update"
      d.vm.provision :shell, path: "scripts/bootstrap_ansible.sh"
      d.vm.provision :shell, inline: "PYTHONUNBUFFERED=1 ansible-playbook /cord/build/ansible/prod.yml -c local"
      d.vm.provider "virtualbox" do |v|
@@ -26,6 +28,7 @@ index 41b96eb..9614afa 100644
          mac: "cc37ab000001"
 +    s.vm.provision :shell, inline: "sed -i 's/archive.ubuntu.com/140.113.60.195/g' /etc/apt/sources.list"
 +    s.vm.provision :shell, inline: "sed -i 's/security.ubuntu.com/140.113.60.195/g' /etc/apt/sources.list"
++    d.vm.provision :shell, inline: "sed -i 'apt-get update"
      s.vm.provision :shell, path: "scripts/bootstrap_ansible.sh"
      s.vm.provision :shell, inline: "PYTHONUNBUFFERED=1 ansible-playbook /cord/build/ansible/fakeswitch.yml -c local"
      s.vm.provider "virtualbox" do |v|
@@ -35,6 +38,7 @@ index 41b96eb..9614afa 100644
      d.vm.network "private_network", ip: "10.0.3.100", lxc__bridge_name: 'lxcbr0'
 +    d.vm.provision :shell, inline: "sed -i 's/archive.ubuntu.com/140.113.60.195/g' /etc/apt/sources.list"
 +    d.vm.provision :shell, inline: "sed -i 's/security.ubuntu.com/140.113.60.195/g' /etc/apt/sources.list"
++    d.vm.provision :shell, inline: "sed -i 'apt-get update"
      d.vm.provision :shell, path: "scripts/bootstrap_ansible.sh"
      d.vm.provision :shell, inline: "PYTHONUNBUFFERED=1 ansible-playbook /cord/build/ansible/corddev.yml -c local"
      config.vm.provider :lxc do |lxc|
