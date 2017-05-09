@@ -22,7 +22,7 @@ index 41b96eb..0bed385 100644
      d.vm.provision :shell, path: "scripts/bootstrap_ansible.sh"
      d.vm.provision :shell, inline: "PYTHONUNBUFFERED=1 ansible-playbook /cord/build/ansible/prod.yml -c local"
      d.vm.provider "virtualbox" do |v|
-@@ -76,6 +80,8 @@ Vagrant.configure(2) do |config|
+@@ -76,6 +82,9 @@ Vagrant.configure(2) do |config|
          virtualbox__intnet: "cord-fabric-network",
          libvirt__network_name: "cord-fabric-network",
          mac: "cc37ab000001"
