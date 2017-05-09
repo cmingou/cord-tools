@@ -22,10 +22,10 @@ index f81de29..9a73ff9 100644
    args:
      creates: "/var/lib/uvtool/libvirt/images/x-uvt-b64-*"
 diff --git a/roles/create-lxd/tasks/main.yml b/roles/create-lxd/tasks/main.yml
-index b6e3651..4fc1789 100644
+index 2042cba..f41c5b3 100644
 --- a/roles/create-lxd/tasks/main.yml
 +++ b/roles/create-lxd/tasks/main.yml
-@@ -104,6 +104,13 @@
+@@ -108,6 +108,13 @@
    tags:
      - skip_ansible_lint # connectivity check
  
@@ -62,7 +62,7 @@ index 69b13bf..fbad9d6 100644
  - name: Check that machines are available for Juju
    command: ansible containers -m ping -u ubuntu
 diff --git a/vars/cord_defaults.yml b/vars/cord_defaults.yml
-index 7a0549b..41d565c 100644
+index fa2e0c2..c4fe842 100644
 --- a/vars/cord_defaults.yml
 +++ b/vars/cord_defaults.yml
 @@ -226,17 +226,17 @@ compute_relations:
