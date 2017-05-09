@@ -9,8 +9,6 @@ git apply patch_config
 cat patch_config
 git apply patch_Vagrantfile
 cat patch_Vagrantfile
-git apply patch_bootstrap_ansible
-cat patch_bootstrap_ansible
 
 cd $HOME/opencord/build/platform-install
 git apply patch_platform
