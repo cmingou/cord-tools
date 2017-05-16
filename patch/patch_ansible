@@ -1,0 +1,10 @@
+diff --git a/ansible/roles/buildtools/defaults/main.yml b/ansible/roles/buildtools/defaults/main.yml
+index 9cca96e..3e03218 100644
+--- a/ansible/roles/buildtools/defaults/main.yml
++++ b/ansible/roles/buildtools/defaults/main.yml
+@@ -1,4 +1,4 @@
+ apt_packages:
+   - maven
+-  - git=1:2.11*
++  - git=1:2*
+   - libxml-xpath-perl
