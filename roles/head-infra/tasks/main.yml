@@ -50,6 +50,10 @@
     name: bridge-utils
     update_cache: yes
 
+- name: Update all packages to the lastest version
+  apt:
+    upgrade: dist
+
 - name: Add bridge mgmtbr
   command: brctl addbr mgmtbr
   tags:
