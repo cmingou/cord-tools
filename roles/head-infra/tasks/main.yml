@@ -39,6 +39,12 @@
     dest: /etc/resolv.conf
     line: 'nameserver 8.8.8.8'
 
+- name: Change apt source to NCHC
+  shell: sudo sed -i 's/tw.archive.ubuntu.com/free.nchc.org.tw/g' /etc/apt/sources.list
+  
+- name: Change apt source to NCHC
+  shell: sudo sed -i 's/security.ubuntu.com/free.nchc.org.tw/g' /etc/apt/sources.list
+
 - name: Install bridge tool
   apt:
     name: bridge-utils
