@@ -1,2 +1,2 @@
 [head]
-192.168.15.1	ansible_user=ubuntu	ansible_ssh_pass=ubuntu
+192.168.15.1	ansible_user=ubuntu	ansible_ssh_pass=ubuntu	ansible_sudo_pass=ubuntu

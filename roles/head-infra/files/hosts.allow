@@ -7,7 +7,7 @@
 # If you're going to protect the portmapper use the name "rpcbind" for the
 # daemon name. See rpcbind(8) and rpc.mountd(8) for further information.
 #
-sshd: 10.9.0.0/255.255.255.0 : allow
+sshd: 10.100.0.0/255.255.255.0 : allow
 sshd: 192.168.12.0/255.255.255.0 : allow
 sshd: 192.168.13.0/255.255.255.0 : allow
 sshd: 192.168.15.0/255.255.255.0 : allow

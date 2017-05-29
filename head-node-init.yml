@@ -1,5 +1,5 @@
 ---
-- hosts: localhost
+- hosts: head
   become: yes
   roles:
     - head-infra
